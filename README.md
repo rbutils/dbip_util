@@ -2,7 +2,7 @@
 
 DbipUtil includes DB-IP Lite databases and a simple interface to them, based on `maxmind-db` gem.
 
-The included databases are refreshed automatically. A GitHub Actions workflow runs `bin/dbiputil-refresh` and then `rake release` at **00:45&nbsp;GMT+1 on the 15th of every month** to publish a new gem version. Ensure to comply with the database licensing terms below in this document.
+The included databases are refreshed automatically. A GitHub Actions workflow runs `bin/dbiputil-refresh` and then `rake release` at **00:00&nbsp;GMT on the 2nd of every month** to publish a new gem version. Ensure to comply with the database licensing terms below in this document.
 
 ## Installation
 
