@@ -1,0 +1,31 @@
+name: Release
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '45 23 14 * *'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4.4'
+          bundler-cache: true
+      - name: Refresh database
+        run: bin/dbiputil-refresh
+      - name: Commit refreshed database
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "Automated DB refresh" || echo "No changes to commit"
+          git push
+      - name: Release gem
+        env:
+          RUBYGEMS_API_KEY: ${{ secrets.RUBYGEMS_API_KEY }}
+        run: bundle exec rake release
