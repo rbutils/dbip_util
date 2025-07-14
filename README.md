@@ -42,7 +42,7 @@ The databases are documented here:
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment. If you only need the databases without downloading them from DB-IP directly, run `bin/dbiputil-provision` which extracts them from the latest released gem on RubyGems.
+After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment. If you only need the databases without downloading them from DB-IP directly, run `ruby bin/dbiputil-provision` which extracts them from the latest released gem on RubyGems.
 
 To install this gem onto your local machine, run `bundle exec rake install`. If you need to trigger a release manually, run `bin/dbiputil-refresh` and then `bundle exec rake release`. This will create a git tag for the version, push commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
