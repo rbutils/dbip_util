@@ -21,7 +21,7 @@ jobs:
           fetch-depth: 0
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.4.4'
+          ruby-version: '3.4'
           bundler-cache: true
       - name: Refresh database
         run: bin/dbiputil-refresh
@@ -32,5 +32,4 @@ jobs:
           git add .
           git commit -m "Automated DB refresh" || echo "No changes to commit"
           git push
-      - name: Release gem
-        run: bundle exec rake release
+      - uses: rubygems/release-gem@v1
