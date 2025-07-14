@@ -2,7 +2,7 @@
 
 DbipUtil includes DB-IP Lite databases and a simple interface to them, based on `maxmind-db` gem.
 
-It is automatically updated every month to refresh the database. Ensure to comply with the database licensing terms below in this document.
+The included databases are refreshed automatically. A GitHub Actions workflow runs `bin/dbiputil-refresh` and then `rake release` at **00:45&nbsp;GMT+1 on the 15th of every month** to publish a new gem version. Ensure to comply with the database licensing terms below in this document.
 
 ## Installation
 
@@ -44,7 +44,7 @@ The databases are documented here:
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+To install this gem onto your local machine, run `bundle exec rake install`. If you need to trigger a release manually, run `bin/dbiputil-refresh` and then `bundle exec rake release`. This will create a git tag for the version, push commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
 ## Contributing
 
