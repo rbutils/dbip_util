@@ -35,8 +35,8 @@ module DbipUtil
   end
 
   def ensure_provisioned!
-    # Check for a sample database. If not present, provision it.
-    system "#{__dir__}/../bin/dbiputil-refresh" unless File.exist?(db_path(:country))
+    # Check for a sample database. If not present, provision it from Rubygems.
+    system "#{__dir__}/../bin/dbiputil-provision" unless File.exist?(db_path(:country))
   rescue StandardError
     warn "Couldn't provision a database! Use a `dbip_util` gem from Rubygems, as it includes a database."
     raise

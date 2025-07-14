@@ -24,6 +24,8 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true
+      - name: Provision databases
+        run: bin/dbiputil-provision
       - name: Run the default task
         run: bundle exec rake
         shell: bash

@@ -1,0 +1,33 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "json"
+require "net/http"
+require "uri"
+require "rubygems/package"
+require "fileutils"
+require "tmpdir"
+
+GEM_NAME = "dbip_util"
+
+def latest_version
+  uri = URI("https://rubygems.org/api/v1/gems/#{GEM_NAME}.json")
+  JSON.parse(Net::HTTP.get(uri))["version"]
+end
+
+version = latest_version
+
+base_dir = File.expand_path(File.join(__dir__, "..", "lib", "dbip_util"))
+Dir.chdir(base_dir) do
+  Dir.mktmpdir do |tmp|
+    gem_path = File.join(tmp, "#{GEM_NAME}-#{version}.gem")
+    File.binwrite(gem_path, Net::HTTP.get(URI("https://rubygems.org/downloads/#{GEM_NAME}-#{version}.gem")))
+    extract_dir = File.join(tmp, "pkg")
+    Gem::Package.new(gem_path).extract_files(extract_dir)
+    %w[country city asn].each do |type|
+      FileUtils.mkdir_p("db")
+      src = File.join(extract_dir, "lib", "dbip_util", "db", "dbip-#{type}-lite.mmdb")
+      FileUtils.cp(src, File.join("db", "dbip-#{type}-lite.mmdb"))
+    end
+  end
+end
