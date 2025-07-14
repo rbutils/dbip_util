@@ -1,0 +1,16 @@
+# DbipUtil includes DB-IP Lite databases and a simple interface to them, based on `maxmind-db` gem.
+module DbipUtil
+  extend ::DbipUtil
+
+  def open: (Symbol db, ?::Hash[Symbol, untyped] options) -> MaxMind::DB
+  def const_missing: (Symbol const) -> MaxMind::DB
+
+  private
+
+  def db_path: (Symbol db) -> String
+  def ensure_provisioned!: () -> untyped
+
+  AST: MaxMind::DB
+  City: MaxMind::DB
+  Country: MaxMind::DB
+end

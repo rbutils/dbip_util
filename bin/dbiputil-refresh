@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "bundler/setup"
+
+Dir.chdir "#{__dir__}/../lib/dbip_util" do
+  date = Time.now.strftime("%Y-%m")
+  date_ver = date.gsub("-", ".")
+
+  system "rm -rf db"
+  system "mkdir db"
+  Dir.chdir "db" do
+    %i[country city asn].each do |type|
+      system <<~SH
+        curl 'https://download.db-ip.com/free/dbip-#{type}-lite-#{date}.mmdb.gz' |
+          gunzip -c > dbip-#{type}-lite.mmdb
+      SH
+    end
+  end
+
+  # Version bump
+  version_file = File.read("version.rb")
+  version_file = version_file.gsub(/DB_VERSION = .*/, %(DB_VERSION = "#{date_ver}"))
+  File.write("version.rb", version_file)
+end
