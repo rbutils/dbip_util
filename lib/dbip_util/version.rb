@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
 module DbipUtil
-  DB_VERSION = "2026.06"
+  DB_VERSION = "2026.07"
   VERSION = "0.1.2.#{DB_VERSION}".freeze
 end
